@@ -44,7 +44,7 @@ const ProtectedRoutes = ({ children }) => {
     },
     {
       title: "Exams",
-      paths: ["/admin/exams","/admin/exams/add","/admin/exams/edit"],
+      paths: ["/admin/exams", "/admin/exams/add","/admin/exams/edit/"],
       onClick: () => navigate("/admin/exams"),
     },
     {
@@ -68,7 +68,7 @@ const ProtectedRoutes = ({ children }) => {
   ];
   const getUserData = async () => {
     try {
-      dispatch(showLoading())
+      dispatch(showLoading());
       const response = await getUserInfo();
       dispatch(hideLoading());
       if (response.success) {
@@ -94,7 +94,12 @@ const ProtectedRoutes = ({ children }) => {
 
   const activeRoute = window.location.pathname;
   const getIsActive = (paths) => {
-    return paths.includes(activeRoute);
+    if (paths.includes(activeRoute)) {return true;}
+    else{ 
+      if (activeRoute.includes("/admin/exams/edit/") && paths.includes("/admin/exams")){ 
+      return true;}
+    }
+    return false;
   };
   return (
     <div className="layout">

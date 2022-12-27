@@ -22,28 +22,54 @@ export const getAllExams = async () => {
   }
 };
 
-// export const getExamById = async (id) => {
-//   try {
-//     console.log(`this id.json() ${id.JSON()}`);
-//     const response = await backendConnection.post(`/api/exams/exam-by-id/`,id.JSON());
-//     console.log(response.data);
-//     return response.data;
-//   } catch (err) {
-//     console.log("errrrr",err.response.data);
-//     return err.response.data;
-//   }
-// };
-
-export const getExamById = async (id
-) => {
+export const getExamById = async (id) => {
   try {
-    console.log(`this id.json() ${id}`);
-    const response = await backendConnection.post("/api/exams/exam-by-id/",id);
-    console.log("response.data");
-    console.log(response.data);
+    const response = await backendConnection.post("/api/exams/exam-by-id/", id);
     return response.data;
   } catch (err) {
-    console.log("errrrr",err.response.data);
+    console.log(err.response.data);
     return err.response.data;
   }
-}
+};
+
+export const editExamById = async (exam) => {
+  try {
+    console.log(exam);
+    const response = await backendConnection.post(
+      "/api/exams/edit-exam-by-id",
+      exam
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err.response.data);
+    return err.response.data;
+  }
+};
+
+export const deleteExamById = async (id) => {
+  try {
+    const response = await backendConnection.post(
+      "/api/exams/delete-exam-by-id",
+      id
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err.response.data);
+    return err.response.data;
+  }
+};
+
+export const addQuestionToExam = async (question) => {
+  console.log(question);
+  try {
+    const response = await backendConnection.post(
+      "/api/exams/add-question",
+      question
+    );
+    console.log(response);
+    return response.data;
+  } catch (err) {
+    console.log(err.response.data);
+    return err.response.data;
+  }
+};

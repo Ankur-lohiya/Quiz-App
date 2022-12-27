@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Table, message } from "antd";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../../redux/loaderSlice";
-import { getAllExams } from "../../../backendConnection/exam";
+import { getAllExams, deleteExamById } from "../../../backendConnection/exam";
 function Exams() {
   const navigate = useNavigate();
   const [exams, setExams] = React.useState([]);
@@ -40,7 +40,7 @@ function Exams() {
             className="ri-pencil-line"
             onClick={() => navigate(`/admin/exams/edit/${record._id}`)}
           ></i>
-          <i className="ri-delete-bin-line"></i>
+          <i className="ri-delete-bin-line" onClick={() => deleteExam(record._id)}></i>
         </div>
       ),
     },
@@ -61,6 +61,23 @@ function Exams() {
       console.log(err);
     }
   };
+
+  const deleteExam = async(id)=>{
+    try {
+      dispatch(showLoading());
+      const response = await deleteExamById({examId:id});
+      dispatch(hideLoading());
+      if (response.success) {
+        message.success(response.message);
+        getExamsData();
+      } else {
+        message.error(response.message);
+      }
+    } catch (err) {
+      dispatch(hideLoading());
+      message.error(err.message);
+    }
+  } 
 
   React.useEffect(() => {
     getExamsData();
