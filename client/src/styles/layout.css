@@ -1,0 +1,51 @@
+.layout{
+    padding:15px;
+    width: 97vw;
+}
+.body{
+    width: 100%;
+    height: 100%;
+}
+
+.sidebar{
+    background-color: var(--primary);
+    padding:5px 10px;
+    border-radius: 5px;
+    height:90vh !important;
+    align-items: center !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.menu-item{
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    margin: 5px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+.active-menu-item{
+    border:2px solid white;
+    border-radius: 5px;
+}
+.header{
+    background-color: var(--primary);
+    color: white !important;
+    width: 100% !important;
+    padding: 10px;
+    border-radius: 5px;
+    height: 5vh;
+    align-items: center !important;
+}
+.exmbtn{
+    padding: 7px;
+    width: 10%;
+    height: 5%;
+    margin-top: 2em;
+    font-weight: 600;
+    background-color: white;
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    border-radius: 2px;
+}
