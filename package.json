@@ -3,8 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": ">= 10.0.0",
+    "npm": ">= 6.0.0"
+
+  },
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server/app.js",
+    "client":"npm start --prefix client",
+    "dev":"concurrently \"npm run client\" \"npm start\" ",.
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +26,7 @@
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^6.8.1",
     "nodemon": "^2.0.20",
+    "path": "^0.12.7",
     "remixicon": "^2.5.0"
   }
 }
