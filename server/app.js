@@ -14,13 +14,13 @@ app.use("/api/users", userRoutes);
 app.use("/api/exams", examRoutes);
 app.use("/api/report", reportRoutes);
 
-const path=require("path");
-__dirname=path.resolve();
+const path = require("path");
+__dirname = path.resolve();
 
-app.use(express.static(path.join(__dirname,'../client/build')))
-app.get("*",(req,res)=>{
-  res.sendFile(path.join(__dirname,'../client/build/index.html'));
-})
+app.use(express.static(path.join(__dirname, "/client/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "/client/build/index.html"));
+});
 
 const port = process.env.PORT || 5000;
 const dbconfig = require("./config/dbconfig");
