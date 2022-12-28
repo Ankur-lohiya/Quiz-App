@@ -19,8 +19,8 @@ const ProtectedRoutes = ({ children }) => {
     },
     {
       title: "Reports",
-      paths: ["/reports"],
-      onClick: () => navigate("/reports"),
+      paths: ["/user/reports"],
+      onClick: () => navigate("/user/reports"),
     },
     {
       title: "Profile",

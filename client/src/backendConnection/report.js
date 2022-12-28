@@ -18,27 +18,29 @@ export const addReport = async (report) => {
 };
 
 //get all report
-export const getAllReport = async (report) => {
+export const getAllReport = async () => {
   try {
+    console.log("get all report")
     const response = await backendConnection.post(
-      "/api/report/get-add-reports",
-      report
+      "/api/report/get-all-reports"
     );
+    console.log(response)
     return response.data;
   } catch (err) {
-    return err.response.data;
+    console.log(err.message);
+    message.error(err.message);
   }
 };
 
 //get report by user
-export const getReportByUser = async (report) => {
+export const getReportByUser = async () => {
   try {
     const response = await backendConnection.post(
-      "/api/report/get-attempts-by-user",
-      report
+      "/api/report/get-reports-by-user"
     );
     return response.data;
   } catch (err) {
-    return err.response.data;
+    console.log(err.message);
+    message.error(err.message);
   }
 };
