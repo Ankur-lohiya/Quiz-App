@@ -84,12 +84,17 @@ const ProtectedRoutes = ({ children }) => {
         message.error(response.message);
       }
     } catch (err) {
+      navigate('/login')
       dispatch(hideLoading());
       message.error(err.message);
     }
   };
   useEffect(() => {
-    getUserData();
+    if(localStorage.getItem("token")){
+      getUserData();
+    }else{
+      navigate("/login");
+    }
   }, []);
 
   const activeRoute = window.location.pathname;

@@ -51,7 +51,7 @@ router.post("/all-exams", jwtauth, async (req, res) => {
 
 router.post("/exam-by-id/", jwtauth, async (req, res) => {
   try {
-    const exams = await Exam.findById(req.body.examId);
+    const exams = await Exam.findById(req.body.examId).populate("questions");
     // console.log(exams);
     res.status(200).send({
       message: "Exams fetched successfully",
@@ -108,7 +108,7 @@ router.post("/add-question", jwtauth, async (req, res) => {
     const newquestion = new Question(req.body);
     const question = await newquestion.save();
     const exam = await Exam.findById(req.body.examId);
-    console.log("exam",exam.questions,"question",question._id);
+    console.log("exam", exam.questions, "question", question._id);
     exam.questions.push(question._id);
     await exam.save();
     res.status(200).send({

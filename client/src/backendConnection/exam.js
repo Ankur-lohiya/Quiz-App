@@ -73,3 +73,29 @@ export const addQuestionToExam = async (question) => {
     return err.response.data;
   }
 };
+
+export const editQuestionById = async (editQuestion) => {
+  try {
+    const response = await backendConnection.post(
+      "/api/exams/edit-question-in-exam",
+      editQuestion
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err.response.data);
+    return err.response.data;
+  }
+};
+
+export const deleteQuestionById = async (id) => {
+  try {
+    const response = await backendConnection.post(
+      "/api/exams/delete-question-in-exam",
+      id
+    );
+    return response.data;
+  } catch (err) {
+    console.log(err.response.data);
+    return err.response.data;
+  }
+}

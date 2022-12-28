@@ -1,9 +1,10 @@
-import { Col, Form, message, Row, Select, Tabs } from "antd";
+import { Col, Form, message, Row, Select, Table, Tabs } from "antd";
 import React, { useEffect, useState } from "react";
 import {
   addExam,
   getExamById,
   editExamById,
+  deleteQuestionById,
 } from "../../../backendConnection/exam";
 import PageTitle from "../../../components/PageTitle";
 import { useNavigate, useParams } from "react-router-dom";
@@ -18,6 +19,7 @@ function AddEditExam() {
   const params = useParams();
   const [showAddEditQuestionModal, setShowAddEditQuestionModal] =
     useState(false);
+  const [selectedQuestion, setSelectedQuestion] = useState(null);
   const onFinish = async (values) => {
     try {
       dispatch(showLoading());
@@ -40,6 +42,23 @@ function AddEditExam() {
       message.error(err.message);
     }
   };
+
+  const deleteQuestion =async(questionId)=>{
+    try{
+      dispatch(showLoading());
+      const response = await deleteQuestionById({questionId,examId:params.id});
+      if(response.success){
+        message.success(response.message);
+        getExamData();
+      }else{
+        message.error(response.message);
+      }
+      dispatch(hideLoading());
+    }catch(err){
+      dispatch(hideLoading());
+      message.error(err.message);
+    }
+  }
 
   const getExamData = async () => {
     try {
@@ -64,6 +83,50 @@ function AddEditExam() {
       getExamData();
     }
   }, []);
+
+  const quesColumns = [
+    {
+      title: "Question",
+      dataIndex: "question",
+    },
+    {
+      title: "Options",
+      dataIndex: "options",
+      render: (text, record) => {
+        return Object.keys(record.options).map((key) => {
+          return (
+            <div>
+              {key}. {record.options[key]}
+            </div>
+          );
+        });
+      },
+    },
+    {
+      title: "Correct Answer",
+      dataIndex: "correctOptions",
+      render: (text, record) => {
+        return `${record.correctOptions}. ${
+          record.options[record.correctOptions]
+        }`;
+      },
+    },
+    {
+      title: "Action",
+      dataIndex: "action",
+      render: (text, record) => (
+        <div className="flex gap-2">
+          <i className="ri-pencil-line" onClick={() => {
+              setSelectedQuestion(record);
+              setShowAddEditQuestionModal(true);
+          }}></i>
+          <i className="ri-delete-bin-line" onClick={() => deleteQuestion(record._id)}></i>
+        </div>
+      ),
+    },
+  ];
+
+  
   return (
     <div>
       <PageTitle title={params.id ? "Edit Exam" : "Add Exam"}></PageTitle>
@@ -127,9 +190,10 @@ function AddEditExam() {
                     type="button"
                     onClick={() => setShowAddEditQuestionModal(true)}
                   >
-                    Add Question 
+                    Add Question
                   </button>
                 </div>
+                <Table columns={quesColumns} dataSource={examData.questions} />
               </Tabs.TabPane>
             )}
           </Tabs>
@@ -142,6 +206,8 @@ function AddEditExam() {
           showAddEditQuestionModal={showAddEditQuestionModal}
           examId={params.id}
           refreshData={getExamData}
+          selectedQuestion={selectedQuestion}
+          setSelectedQuestion={setSelectedQuestion}
         />
       )}
     </div>

@@ -1,6 +1,6 @@
 import { Form, Modal } from "antd";
 import React from "react";
-import { addQuestionToExam } from "../../../backendConnection/exam";
+import { addQuestionToExam, editQuestionById } from "../../../backendConnection/exam";
 import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { hideLoading, showLoading } from "../../../redux/loaderSlice";
@@ -10,6 +10,8 @@ function AddEditQuestion({
   setShowAddEditQuestionModal,
   refreshData,
   examId,
+  selectedQuestion,
+  setSelectedQuestion,
 }) {
   const dispatch = useDispatch();
   const onFinish = async (values) => {
@@ -26,7 +28,12 @@ function AddEditQuestion({
         },
         examId: examId,
       };
-      const response = await addQuestionToExam(requiredStructure)
+      let response;
+      if (selectedQuestion) {
+        response=await editQuestionById({...requiredStructure,questionId:selectedQuestion._id})
+      } else {
+        response = await addQuestionToExam(requiredStructure);
+      }
       console.log(response);
       if (response.success) {
         message.success(response.message);
@@ -35,6 +42,7 @@ function AddEditQuestion({
       } else {
         message.error(response.message);
       }
+      setSelectedQuestion(null);
       dispatch(hideLoading());
     } catch (err) {
       dispatch(hideLoading());
@@ -43,12 +51,26 @@ function AddEditQuestion({
   };
   return (
     <Modal
-      title="Add Question"
+      title={selectedQuestion ? "Edit Question" : "Add Question"}
       visible={showAddEditQuestionModal}
       footer={false}
-      onCancel={() => setShowAddEditQuestionModal(false)}
+      onCancel={() => {
+        setShowAddEditQuestionModal(false);
+        setSelectedQuestion(null);
+      }}
     >
-      <Form layout="vertical" onFinish={onFinish}>
+      <Form
+        layout="vertical"
+        onFinish={onFinish}
+        initialValues={{
+          question: selectedQuestion?.question,
+          correctAnswer: selectedQuestion?.correctOptions,
+          A: selectedQuestion?.options.A,
+          B: selectedQuestion?.options.B,
+          C: selectedQuestion?.options.C,
+          D: selectedQuestion?.options.D,
+        }}
+      >
         <Form.Item label="Question" name="question">
           <input type="text" />
         </Form.Item>

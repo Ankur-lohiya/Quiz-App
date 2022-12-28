@@ -6,6 +6,7 @@ import "./styles/form-elements.css";
 import Login from "./pages/common/login/";
 import Register from "./pages/common/register";
 import Home from "./pages/common/homepage/";
+import WriteExam from './pages/user/index'; 
 import ProtectedRoute from "./components/protectedRoutes";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./styles/layout.css";
@@ -39,6 +40,15 @@ function App() {
           </ProtectedRoute>
         }
       />
+      <Route
+      path="/user/writeexams/:id"
+      element={
+        <ProtectedRoute>
+          <WriteExam />
+        </ProtectedRoute>
+      }
+    />
+
       <Route
         path="/admin/exams/add"
         element={

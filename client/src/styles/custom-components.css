@@ -23,3 +23,18 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+.divider{
+    border-bottom: 3px solid #e2e8f0;
+    margin: 1em 0;
+}
+.timer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #894114;
+    color: white !important;
+    height: 50px;
+    width: 50px;
+    border-radius: 15%;
+}
