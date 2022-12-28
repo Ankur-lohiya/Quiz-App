@@ -17,13 +17,10 @@ app.use("/api/report", reportRoutes);
 const path=require("path");
 __dirname=path.resolve();
 
-app.use(express.static(path.join(__dirname,'./client/build')))
-if(process.env.NODE_ENV==="production"){
-  app.use(express.static(path.join(__dirname,"/client/build")));
-  app.get("*",(req,res)=>{
-    res.sendFile(path.resolve(__dirname,"client","build","index.html"));
-  })
-}
+app.use(express.static(path.join(__dirname,'../client/build')))
+app.get("*",(req,res)=>{
+  res.sendFile(path.join(__dirname,'../client/build/index.html'));
+})
 
 const port = process.env.PORT || 5000;
 const dbconfig = require("./config/dbconfig");
