@@ -3,29 +3,20 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "engines": {
-    "node": ">= 10.0.0",
-    "npm": ">= 6.0.0"
-
-  },
   "scripts": {
     "start": "node server/app.js",
-    "server":"nodemon server.js",
-    "client":"npm start --prefix client",
-    "dev":"concurrently \"npm run client\" \"npm server\" "
+    "build":"cd server && npm install  && cd ../client && npm install && npm run build",
+    "test":"echo \"Error: no test specified\" && eexit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ankur-lohiya/Quiz-App"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^16.0.3",
-    "express": "^4.18.2",
-    "jsonwebtoken": "^9.0.0",
-    "mongoose": "^6.8.1",
-    "nodemon": "^2.0.20",
-    "path": "^0.12.7",
-    "remixicon": "^2.5.0"
-  }
+  "bugs":{
+    "url":"https://github.com/Ankur-lohiya/Quiz-App/issues"
+  },
+  "homepage":"https://github.com/Ankur-lohiya/Quiz-App#readme"
 }

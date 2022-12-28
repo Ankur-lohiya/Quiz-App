@@ -1,18 +1,12 @@
 {
-  "name": "quiz-test",
+  "name": "backend",
+  "type":"module",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "engines": {
-    "node": ">= 10.0.0",
-    "npm": ">= 6.0.0"
-
-  },
   "scripts": {
-    "start": "node server/app.js",
-    "server":"nodemon server.js",
-    "client":"npm start --prefix client",
-    "dev":"concurrently \"npm run client\" \"npm server\" "
+    "start": "nodemon app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
@@ -27,5 +21,8 @@
     "nodemon": "^2.0.20",
     "path": "^0.12.7",
     "remixicon": "^2.5.0"
+  },
+  "devDependencies": {
+    "nodemon":"2.0.20"
   }
 }
