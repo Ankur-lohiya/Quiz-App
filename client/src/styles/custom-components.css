@@ -1,0 +1,40 @@
+.card{
+    box-shadow:0 0 1px gray;
+    padding: 2em;
+}
+.loader-parent{
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.loader{
+    height: 80px;
+    width: 80px;
+    border: 5px solid #f3f3f3;
+    border-left-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+.divider{
+    border-bottom: 3px solid #e2e8f0;
+    margin: 1em 0;
+}
+.timer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #894114;
+    color: white !important;
+    height: 50px;
+    width: 50px;
+    border-radius: 15%;
+}
